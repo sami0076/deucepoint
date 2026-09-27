@@ -7,7 +7,6 @@ import {
   getRecentFinals,
   getThisWeek,
   getTrajectories,
-  simulateDraw,
 } from '../api/endpoints'
 import { useResource, type Resource } from '../api/useResource'
 import {
@@ -27,7 +26,6 @@ import {
   SeedingSheet,
   Skeleton,
   StatTable,
-  SurfaceDot,
   Ticker,
   ThisWeek,
   TourFilter,
@@ -38,15 +36,12 @@ import type {
   RecentFinals as RecentFinalsData,
   CoverageEntry,
   CoverageResponse,
-  DrawOdds,
-  DrawSimulation,
   HeadToHead,
   RankingPage,
   RankingRow,
   ThisWeek as ThisWeekData,
   Trajectories,
 } from '../api/client'
-import { FEATURED_DRAW, roundsReached } from '../lib/featuredDraw'
 import { formatElo, surname } from '../lib/format'
 import { useJsonLd, website } from '../lib/jsonld'
 import { useUrlParam } from '../lib/useUrlParam'
@@ -78,9 +73,9 @@ const columns: ReadonlyArray<Column<CoverageEntry>> = [
 ]
 
 /**
- * Home: the search, the top of the ratings, the rivalry between the two at the
- * top, the week's finals, then the leaders' lines, what the database holds and
- * a draw the model replayed.
+ * Home: the search, this week so far, the top of the ratings, the rivalry
+ * between the two at the top, last week's finals, then the leaders' lines and
+ * what the database holds.
  */
 export function Home() {
   const [tour, setTour] = useUrlParam('tour')
@@ -93,7 +88,6 @@ export function Home() {
     (signal) => getRankings({ type: 'elo', tour, limit: SEEDS }, signal),
     [tour],
   )
-  const draw = useResource((signal) => simulateDraw(FEATURED_DRAW, signal), [])
   const recent = useResource((signal) => getRecentFinals(signal), [])
   const week = useResource((signal) => getThisWeek(signal), [])
   useJsonLd('website', website())
@@ -181,10 +175,6 @@ export function Home() {
             </p>
           </>
         ) : null}
-      </Card>
-
-      <Card className={styles.block}>
-        <Replay draw={draw} />
       </Card>
     </>
   )
@@ -456,98 +446,6 @@ function Seeding({
           </p>
         </Note>
         <ButtonLink to="/rankings">See the full rankings</ButtonLink>
-      </div>
-    </>
-  )
-}
-
-/**
- * The replayed draw: one column per round, the chance of still being in it
- * written where the score would go, and who actually won marked in the margin.
- */
-function Replay({ draw }: { draw: Resource<DrawSimulation> }) {
-  if (draw.state === 'loading') {
-    return (
-      <>
-        <h2 className={styles.sectionTitle}>A draw, replayed ten thousand times</h2>
-        <Skeleton lines={8} />
-      </>
-    )
-  }
-  // The sections above already reported an API that is not answering.
-  if (draw.state === 'error') return null
-
-  const sim = draw.data
-  const rounds = roundsReached(sim.rounds)
-  const shown = [...sim.odds].sort((a, b) => b.title - a.title).slice(0, SEEDS)
-  const rest = sim.odds.slice(SEEDS).reduce((sum, o) => sum + o.title, 0)
-  const columns: Column<DrawOdds>[] = [
-    {
-      key: 'seed',
-      header: 'Seed',
-      value: (row) => row.seed,
-      render: (row) => (row.seed === null ? '' : `[${row.seed}]`),
-      sortable: false,
-    },
-    {
-      key: 'name',
-      wrap: true,
-      header: 'Player',
-      value: (row) => row.name,
-      render: (row) => (
-        <Link className={styles.player} to={`/players/${row.slug}`}>
-          {row.name}
-        </Link>
-      ),
-      sortable: false,
-    },
-    ...rounds.slice(0, -1).map(
-      (round, index): Column<DrawOdds> => ({
-        key: round,
-        header: round,
-        align: 'right',
-        value: (row) => row.reached[index] ?? null,
-        render: (row) => `${((row.reached[index] ?? 0) * 100).toFixed(1)}`,
-        sortable: false,
-        wide: index < rounds.length - 2,
-      }),
-    ),
-    {
-      key: 'title',
-      header: 'W',
-      align: 'right',
-      value: (row) => row.title,
-      render: (row) => (
-        <span className={styles.title2}>
-          {(row.title * 100).toFixed(1)}
-          <span className={styles.interval}> ±{(row.title_interval * 100).toFixed(1)}</span>
-        </span>
-      ),
-      sortable: false,
-    },
-    {
-      key: 'won',
-      header: '',
-      value: (row) => (row.slug === sim.champion ? 1 : 0),
-      render: (row) => (row.slug === sim.champion ? <span className={styles.won}>won</span> : ''),
-      sortable: false,
-    },
-  ]
-
-  return (
-    <>
-      <h2 className={styles.sectionTitle}>
-        <SurfaceDot surface={sim.event.surface} label={false} /> {sim.event.name}{' '}
-        {sim.event.season}, replayed {sim.runs.toLocaleString()} times
-      </h2>
-      <StatTable
-        caption={`This draw was played. Ratings are as of ${sim.event.ratings_as_of}, the week it began; each figure is the share of runs in which that player was still in the draw at that round, with a 95% interval on the title. The ${sim.entered - shown.length} players not listed share ${(rest * 100).toFixed(1)}% of the title between them.`}
-        columns={columns}
-        rows={shown}
-        rowKey={(row) => row.slug}
-      />
-      <div className={styles.replayFoot}>
-        <ButtonLink to="/simulator">Replay a draw</ButtonLink>
       </div>
     </>
   )

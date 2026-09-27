@@ -311,16 +311,6 @@
   margin-bottom: var(--s-5);
 }
 
-.sectionTitle {
-  display: flex;
-  align-items: center;
-  gap: var(--s-2);
-  font-size: var(--t-20);
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  margin-bottom: var(--s-3);
-}
-
 .standfirst {
   max-width: 62ch;
   margin-bottom: var(--s-4);
@@ -377,38 +367,6 @@
   display: grid;
   gap: var(--s-3);
   justify-items: start;
-}
-
-.player {
-  font-weight: 700;
-  border-bottom: 0;
-}
-
-.player:hover {
-  color: var(--pencil);
-}
-
-.title2 {
-  font-weight: 700;
-}
-
-.interval {
-  font-weight: 400;
-  color: var(--pencil);
-  font-size: var(--t-11);
-}
-
-.won {
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--ink);
-  color: var(--card);
-  font-size: var(--t-11);
-  font-weight: 700;
-}
-
-.replayFoot {
-  margin-top: var(--s-4);
 }
 
 .seasons {
