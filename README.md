@@ -6,16 +6,15 @@ Deep per-player statistics, head-to-head comparison, and first-principles match 
 simulation for **both the ATP and WTA tours** — built from raw match data, with the
 working shown.
 
-> **Status: live, and Phases 1 to 4 are done.** Ingestion, the schema, the API, the Elo
+> **Status: live, and Phases 1 to 5 are done.** Ingestion, the schema, the API, the Elo
 > engine, player pages, head-to-head, rankings, search, both simulators, the methodology
-> page and the Match Charting Project's per-set sheets are all deployed at
-> [deucepoint.net](https://deucepoint.net), which has been up since 14 September 2026.
-> Phase 5 — tournaments and seasons as pages, the draw sheet rendered, serve and return
-> leaderboards, player and head-to-head splits — is built; see [Roadmap](#roadmap).
+> page, the Match Charting Project's per-set sheets, tournaments and seasons as pages, and
+> the serve and return leaderboards are all deployed at [deucepoint.net](https://deucepoint.net),
+> which has been up since 14 September 2026. Since then the home page shows this week's
+> events as they are played, refreshed hourly, and the head-to-head draws both players'
+> last year on tour as a percentile radar; see [Roadmap](#roadmap).
 
-<!-- SCREENSHOT: head-to-head page. Required by the build spec §13.2 — first thing after
-     the title. To be taken from the live site, at deucepoint.net/h2h. -->
-_Screenshot of the head-to-head page: to be taken from the live site._
+![The Deucepoint home page in the dark theme: the headline "Every match, and every gap between them.", a search box, the ticker of Elo leaders and results, and the This week card](docs/images/home.png)
 
 **Live URL:** [deucepoint.net](https://deucepoint.net) — API at [api.deucepoint.net](https://api.deucepoint.net/api/v1/health)
 
@@ -507,7 +506,8 @@ that split.
 - **Live in-play scores.** Requires a paid feed ($40/month at the low end, enterprise
   quote at the high end). The architecture leaves a websocket seam for it, but shipping it
   would mean either paying indefinitely or scraping — neither is defensible for a public
-  non-commercial site.
+  non-commercial site. What the home page does show is this week's finished matches,
+  hourly, from the free source the rest of the data comes from ([ADR-0016](docs/decisions/0016-this-week.md)).
 - **Betting odds, tipping, or predictions framed as picks.** The simulator reports
   probabilities and shows its working. It is not a gambling product and will not be
   shaped into one.
@@ -528,6 +528,10 @@ that split.
 | 3 | Match simulator (closed form), draw simulator (Monte Carlo) | Done |
 | 4 | Methodology page, image builds, k3s, deployment, the Match Charting Project | Done |
 | 5 | Tournaments and seasons as pages, the draw sheet rendered, serve and return leaderboards, player and head-to-head splits | Done ([#131](https://github.com/sami0076/tennis-wiki/issues/131)) |
+
+Since Phase 5: the redesign in cream, ink and white ([ADR-0014](docs/decisions/0014-court-colour.md)),
+the head-to-head radar of tour percentiles ([ADR-0015](docs/decisions/0015-player-percentiles.md)),
+and this week's results on the home page ([ADR-0016](docs/decisions/0016-this-week.md)).
 
 Clutch metrics were pulled forward into Phase 2 and shipped there. Phase 3's shape was
 checked against the data before it was planned, and two things moved: the point-win
