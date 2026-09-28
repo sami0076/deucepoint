@@ -28,10 +28,9 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  font-family: var(--font-mono);
   font-size: var(--t-20);
   font-weight: 700;
-  letter-spacing: -0.02em;
   border-bottom: 0;
 }
 
@@ -42,16 +41,6 @@
   border-radius: 50%;
   background: var(--ink);
   animation: dp-pulse 2.6s ease-in-out infinite;
-}
-
-.brand:hover .ball {
-  animation: hop 520ms var(--ease-spring);
-}
-
-@keyframes hop {
-  40% {
-    transform: translateY(-7px);
-  }
 }
 
 .links {
