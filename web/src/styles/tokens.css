@@ -14,6 +14,9 @@
   --card: #ffffff;
   --card-line: #e8e7e0;
 
+  /* the brand ball's seam; the ball itself is currentColor */
+  --dp-paper: var(--bond);
+
   /* ink and pencil */
   --ink: #17181a;
   --pencil: #66655f;
