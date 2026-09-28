@@ -14,7 +14,9 @@
   height: calc(var(--dp-xh) * 1.0455);            /* viewBox is the ball + 1 unit of padding on r=22 */
   width: auto;
   margin: 0 calc((var(--dp-adv) - var(--dp-xh) * 1.0455) / 2);
-  vertical-align: calc(var(--dp-xh) * -0.0227);   /* drop by the padding so the ball bottom is on the baseline */
+  /* drop by the padding so the ball bottom is on the baseline; vertical-align is ignored on a flex item */
+  position: relative;
+  top: calc(var(--dp-xh) * 0.0227);
   overflow: visible;
 }
 /* Ball + flames: the ball keeps the o's cell; the flames overhang the neighbours above x-height. */
