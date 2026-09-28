@@ -12,10 +12,12 @@
     <meta name="theme-color" content="#121311" media="(prefers-color-scheme: dark)" />
     <!--
       Declared, so the browser stops probing /favicon.ico and 404ing on every
-      page load. The SVG carries its own dark-mode rule, which is why there is
-      one file rather than two.
+      page load. The SVG carries its own dark-mode rule; the PNG is for
+      browsers that do not take an SVG icon.
     -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <!--
       Before the stylesheet and before React: a reader who chose dark must not
       see one cream frame first. Inline and tiny on purpose -- a module would
