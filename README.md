@@ -6,6 +6,8 @@ Deep per-player statistics, head-to-head comparison, and first-principles match 
 simulation for **both the ATP and WTA tours** — built from raw match data, with the
 working shown.
 
+Note: Claude Code used for frontend design.
+
 ![The Deucepoint home page in the dark theme: the headline "Every match, and every gap between them.", a search box, the ticker of Elo leaders and results, and the This week card](docs/images/home.png)
 
 **Live:** [deucepoint.net](https://deucepoint.net) — API at [api.deucepoint.net](https://api.deucepoint.net/api/v1/health)
