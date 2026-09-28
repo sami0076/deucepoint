@@ -1,20 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Deucepoint">
-  <!--
-    The site's brand mark: the ink dot that sits before the wordmark in the
-    header. A tab is 16px, so the mark is the dot alone, because a letter or a
-    racquet at that size is a smudge.
-
-    The colours follow the reader's system theme the way the site does. An SVG
-    favicon is re-read when the scheme changes, so this needs no second file.
-  -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="19 19 62 62" width="32" height="32" class="mark isBare" role="img" aria-label="Deucepoint">
   <style>
-    .ground { fill: #f6f6f2; }
-    .ink    { fill: #17181a; }
-    @media (prefers-color-scheme: dark) {
-      .ground { fill: #121311; }
-      .ink    { fill: #f3f2ea; }
-    }
+.mark { --dp-ink: currentColor; display: inline-block; vertical-align: middle; }
+.ink { fill: var(--dp-ink); }
+.ballFill { fill: var(--dp-ball, var(--dp-ink)); }
+.flameOuter { fill: var(--dp-flame, var(--dp-ink)); stroke: var(--dp-flame, var(--dp-ink)); stroke-linejoin: round; paint-order: stroke; }
+.flameInner { fill: var(--dp-flame-inner, var(--dp-paper, #F6F6F2)); }
+.seam { fill: none; stroke: var(--dp-paper, #F6F6F2); stroke-linejoin: round; }
+.ember { fill: var(--dp-flame, var(--dp-ink)); opacity: 0; }
+.isFlame { --dp-flame: #FF5A1F; --dp-flame-inner: #FFC53D; }
+.isOptic { --dp-ball: #DFFF4F; }
+.isBare { overflow: visible; }
+svg:root.mark { color: #14161A; }
+@media (prefers-color-scheme: dark) { svg:root.mark { color: #F6F6F2; --dp-paper: #14161A; } }
   </style>
-  <rect class="ground" width="32" height="32" rx="7" />
-  <circle class="ink" cx="16" cy="16" r="7" />
+  <defs>
+    <clipPath id="dpfb-knockout">
+      <path clip-rule="evenodd" d="M-200 -200H300V300H-200Z M15.5 50 a34.5 34.5 0 1 0 69 0 a34.5 34.5 0 1 0 -69 0Z"/>
+    </clipPath>
+    <clipPath id="dpfb-ball"><circle cx="50" cy="50" r="30"/></clipPath>
+  </defs>
+
+  <g class="drop">
+  <g class="ball">
+    <circle class="ballFill" cx="50" cy="50" r="30"/>
+    <g clip-path="url(#dpfb-ball)">
+      <path class="seam" style="stroke-width:7.5" d="M80.0 50.8L80.0 50.4L79.9 49.9L79.8 49.4L79.7 48.9L79.5 48.3L79.3 47.6L79.1 47.0L78.8 46.2L78.5 45.5L78.1 44.7L77.8 43.9L77.3 43.1L76.9 42.2L76.4 41.3L75.9 40.4L75.4 39.5L74.8 38.5L74.3 37.6L73.7 36.6L73.0 35.7L72.4 34.7L71.7 33.8L71.0 32.8L70.2 31.9L69.5 31.0L68.7 30.1L67.9 29.2L67.1 28.3L66.2 27.5L65.4 26.7L64.5 26.0L63.6 25.2L62.7 24.6L61.8 23.9L60.8 23.3L59.8 22.8L58.9 22.3L57.9 21.8L56.8 21.4L55.8 21.1L54.8 20.8L53.7 20.5L52.7 20.3L51.6 20.2L50.5 20.1L49.5 20.0L48.4 20.1L47.3 20.1 M25.4 32.8L24.9 33.6L24.5 34.3L24.1 35.0L23.8 35.8L23.5 36.5L23.3 37.3L23.1 38.0L23.0 38.7L22.9 39.4L22.9 40.1L23.0 40.8L23.1 41.4L23.3 42.1L23.6 42.8L23.9 43.4L24.2 44.0L24.7 44.7L25.1 45.3L25.7 45.9L26.3 46.5L26.9 47.1L27.6 47.7L28.3 48.3L29.1 48.8L29.9 49.4L30.7 50.0L31.6 50.6L32.5 51.2L33.4 51.7L34.4 52.3L35.4 52.9L36.4 53.5L37.4 54.1L38.4 54.7L39.5 55.3L40.5 56.0L41.5 56.6L42.5 57.2L43.6 57.9L44.6 58.6L45.5 59.2L46.5 59.9L47.4 60.6L48.3 61.3L49.2 62.0L50.0 62.7L50.8 63.5L51.6 64.2L52.3 65.0L52.9 65.7L53.5 66.4L54.1 67.2L54.6 67.9L55.0 68.7L55.4 69.4L55.8 70.2L56.0 70.9L56.2 71.6L56.4 72.3L56.5 73.0L56.5 73.7L56.4 74.3L56.3 74.9L56.2 75.5L55.9 76.1L55.7 76.6L55.3 77.1L54.9 77.6L54.5 78.1L54.0 78.4L53.5 78.8L52.9 79.1L52.3 79.4L51.6 79.6L50.9 79.8L50.2 79.9L49.4 79.9L48.7 80.0"/>
+    </g>
+  </g>
+  </g>
 </svg>
