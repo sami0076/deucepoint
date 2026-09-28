@@ -32,7 +32,7 @@
 /* bare ball (no flames): it drops in and bounces instead */
 .isBare.isIgnite .ball { animation: none; }
 .isBare.isIgnite .drop { animation: bounce 1.15s linear backwards; }
-.mark:hover .ball, .isSpinning .ball { animation: spin 0.9s linear infinite; }
+.mark:hover .ball, .mark.isSpinning .ball { animation: spin 0.9s linear infinite; }
 
 @keyframes flickerA {
   0%   { transform: scale(1, 1) skewX(0deg); }
