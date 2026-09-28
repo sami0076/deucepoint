@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState, type ReactNode } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { CommandPalette, ThemeToggle } from '../components'
+import DeucepointWordmark from '../components/DeucepointWordmark'
 import { ScrollProgress } from './Atmosphere'
 import styles from './Layout.module.css'
 
@@ -42,8 +43,7 @@ export function Layout({ children }: LayoutProps) {
       <header className={styles.header}>
         <nav className={styles.nav}>
           <Link to="/" className={styles.brand}>
-            <span className={styles.ball} aria-hidden="true" />
-            Deucepoint
+            <DeucepointWordmark ignite />
           </Link>
           <div className={styles.links}>
             {links.map((link) => (
