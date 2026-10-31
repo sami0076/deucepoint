@@ -1,9 +1,9 @@
 module github.com/sami0076/tennis-wiki
 
-go 1.23.0
+go 1.24
 
 require (
-	github.com/go-chi/chi/v5 v5.3.2
+	github.com/go-chi/chi/v5 v5.4.0
 	github.com/jackc/pgx/v5 v5.7.5
 	github.com/redis/go-redis/v9 v9.7.3
 )
